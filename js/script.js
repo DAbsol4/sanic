@@ -1,21 +1,20 @@
 /* ==========================================================
-   Sonic Unleashed · Día y Noche
-   Todo el efecto principal es propio (sin librerías).
-   Idea central: una variable "progreso" (0 = día, 1 = noche)
-   que depende del scroll y controla colores, astro y partículas.
+   Sonic Furro Día y Noche
+   Idea: variable progreso (0 = día, 1 = noche)
+   depende del scroll y controla colores, astro y fondo.
    ========================================================== */
 
-// ---------- Utilidades ----------
+//Utilidad
 const lerp  = (a, b, t) => a + (b - a) * t;                       // interpolación lineal
 const clamp = (v, min = 0, max = 1) => Math.min(max, Math.max(min, v));
 const mezclar = (c1, c2, t) => c1.map((v, i) => Math.round(lerp(v, c2[i], t)));
 const rgb = (c) => `rgb(${c[0]}, ${c[1]}, ${c[2]})`;
 
-// Colores [r, g, b] de cada mundo
+// Colores
 const DIA   = { arriba: [74, 168, 255], abajo: [255, 214, 120], acento: [255, 200, 40] };
 const NOCHE = { arriba: [10, 5, 32],    abajo: [70, 25, 100],   acento: [230, 235, 255] };
 
-// ---------- Estado ----------
+// Estado
 const raiz = document.documentElement;
 const astro = document.getElementById('astro');
 const seccionTransf = document.getElementById('transformacion');
@@ -24,9 +23,8 @@ const textoTransf = document.getElementById('texto-transf');
 
 let objetivo = 0;   // progreso según el scroll
 let progreso = 0;   // progreso suavizado (el que se dibuja)
-let mx = 0, my = 0; // posición del puntero normalizada (-1 a 1)
 
-// ---------- 1. SCROLL: calcula el progreso día -> noche ----------
+//Scroll
 function calcularScroll() {
   const inicio = seccionTransf.offsetTop - window.innerHeight * 0.5;
   const largo  = seccionTransf.offsetHeight - window.innerHeight * 0.5;
@@ -35,13 +33,8 @@ function calcularScroll() {
 window.addEventListener('scroll', calcularScroll, { passive: true });
 window.addEventListener('resize', calcularScroll);
 
-// ---------- 2. EVENTO: el astro sigue al mouse / dedo ----------
-window.addEventListener('pointermove', (e) => {
-  mx = (e.clientX / window.innerWidth)  * 2 - 1;
-  my = (e.clientY / window.innerHeight) * 2 - 1;
-});
 
-// ---------- 3. EVENTO: inclinación 3D de los paneles con hover ----------
+// Inclinación 3D de los paneles con con el mouse (fuerza, boost, y los otros 4)
 document.querySelectorAll('.tilt').forEach((el) => {
   el.addEventListener('pointermove', (e) => {
     const r = el.getBoundingClientRect();
@@ -52,13 +45,13 @@ document.querySelectorAll('.tilt').forEach((el) => {
   el.addEventListener('pointerleave', () => { el.style.transform = ''; });
 });
 
-// ---------- 4. ENTRADA: aparición al llegar a cada elemento ----------
+// Aparición al llegar a cada elemento 
 const observador = new IntersectionObserver((entradas) => {
   entradas.forEach((en) => { if (en.isIntersecting) en.target.classList.add('visible'); });
 }, { threshold: 0.2 });
 document.querySelectorAll('.reveal').forEach((el) => observador.observe(el));
 
-// ---------- 5. FONDO: partículas que pasan de líneas de velocidad a estrellas ----------
+// partículas, de líneas de velocidad a estrellas
 const canvas = document.getElementById('fondo');
 const ctx = canvas.getContext('2d');
 let particulas = [];
@@ -97,24 +90,24 @@ function dibujarParticulas(t) {
   });
 }
 
-// ---------- 6. ANIMACIÓN PROPIA: bucle principal ----------
+// Bucle principal
 function bucle(t) {
-  // suavizado: el progreso "persigue" al objetivo
+  // suavizado
   progreso += (objetivo - progreso) * 0.08;
 
-  // colores del cielo mezclados según el progreso
+  // colores del cielo
   raiz.style.setProperty('--cielo-arriba', rgb(mezclar(DIA.arriba, NOCHE.arriba, progreso)));
   raiz.style.setProperty('--cielo-abajo',  rgb(mezclar(DIA.abajo,  NOCHE.abajo,  progreso)));
   raiz.style.setProperty('--acento',       rgb(mezclar(DIA.acento, NOCHE.acento, progreso)));
   raiz.style.setProperty('--progreso', progreso.toFixed(3));
 
-  // astro: baja un poco con el scroll + sigue al puntero + escala
+  // astro (para que baje)
   const bajada = window.scrollY * 0.06;
   const escala = lerp(1, 0.85, progreso);
   astro.style.transform =
-    `translate(${-mx * 25}px, ${bajada - my * 25}px) scale(${escala})`;
+  `translateY(${bajada}px) scale(${escala})`;
 
-  // título de la transformación: crece y gira levemente
+  // título de cae la noche, crece y gira levemente
   tituloTransf.style.transform = `scale(${lerp(0.7, 1.25, progreso)}) rotate(${lerp(-4, 4, progreso)}deg)`;
   tituloTransf.style.opacity = lerp(0.4, 1, progreso);
   textoTransf.style.opacity = clamp(1 - progreso * 1.5);

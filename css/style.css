@@ -1,4 +1,4 @@
-/* ===== Variables (JS cambia --cielo-arriba, --cielo-abajo, --acento y --progreso) ===== */
+/*Variables*/
 :root {
   --cielo-arriba: rgb(74, 168, 255);
   --cielo-abajo: rgb(255, 214, 120);
@@ -20,7 +20,7 @@ body {
   overflow-x: hidden;
 }
 
-/* ===== Fondo y astro ===== */
+/*  Fondo y astro */
 #fondo { position: fixed; inset: 0; width: 100%; height: 100%; z-index: 0; }
 
 #astro {
@@ -34,7 +34,7 @@ body {
   z-index: 1;
   will-change: transform;
 }
-/* cráteres: aparecen al convertirse en luna */
+/* cráter cuando astro se transforma en luna */
 #astro::after {
   content: ""; position: absolute; inset: 0; border-radius: 50%;
   background:
@@ -44,7 +44,7 @@ body {
   opacity: var(--progreso);
 }
 
-/* ===== Estructura ===== */
+/* Estructura */
 main, .pie { position: relative; z-index: 2; }
 
 .barra {
@@ -70,7 +70,7 @@ main, .pie { position: relative; z-index: 2; }
 h2 { font-family: var(--fuente-titulo); font-size: clamp(2.4rem, 7vw, 4.5rem); letter-spacing: 2px; text-shadow: 3px 3px 0 rgba(0,0,0,.3); }
 h3 { font-family: var(--fuente-titulo); font-size: 1.8rem; color: var(--acento); margin-bottom: .4rem; letter-spacing: 1px; }
 
-/* ===== Hero ===== */
+/* Titulo */
 .titulo-hero {
   font-family: var(--fuente-titulo);
   font-size: clamp(3.5rem, 16vw, 11rem);
@@ -96,7 +96,7 @@ h3 { font-family: var(--fuente-titulo); font-size: 1.8rem; color: var(--acento);
 }
 .boton:hover, .boton:focus-visible { transform: scale(1.08) skewX(-6deg); box-shadow: 0 0 40px var(--acento); }
 
-/* ===== Paneles (glassmorphism) ===== */
+/* Paneles (con glassmorphism) */
 .rejilla { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.2rem; width: min(1000px, 100%); }
 .panel {
   padding: 1.6rem; text-align: left;
@@ -107,13 +107,13 @@ h3 { font-family: var(--fuente-titulo); font-size: 1.8rem; color: var(--acento);
 }
 .panel:hover { box-shadow: 0 0 30px var(--acento); }
 
-/* ===== Entrada al hacer scroll (la activa IntersectionObserver) ===== */
+/* Entrada al hacer scroll */
 .reveal { opacity: 0; transform: translateY(40px); transition: opacity .7s, transform .7s; }
 .reveal.visible { opacity: 1; transform: none; }
-/* paneles: tras aparecer, el transform responde rápido al mouse (efecto tilt) */
+/* paneles: tras aparecer, el transform responde al mouse haciendo tilt */
 .panel.reveal.visible { transition: opacity .7s, transform .15s ease-out, box-shadow .3s; }
 
-/* ===== Transformación ===== */
+/* Transformista */
 #transformacion { height: 250vh; position: relative; z-index: 2; }
 .pegado {
   position: sticky; top: 0; height: 100vh;
@@ -123,14 +123,14 @@ h3 { font-family: var(--fuente-titulo); font-size: 1.8rem; color: var(--acento);
 
 .pie { text-align: center; padding: 2rem 1rem; font-size: 1rem; opacity: .8; }
 
-/* ===== Responsive ===== */
+/* Tamaño pantalla*/
 @media (max-width: 600px) {
   body { font-size: 1.05rem; }
   .barra nav a:first-child { display: none; }
   #astro { top: 11vh; right: 6vw; }
 }
 
-/* ===== Accesibilidad ===== */
+/* Accesibilidad */
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   .reveal { transition: none; opacity: 1; transform: none; }
