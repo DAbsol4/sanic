@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Sonic Unleashed · Día y Noche</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Rajdhani:wght@500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- FONDO ANIMADO: líneas de velocidad (día) que se vuelven estrellas (noche) -->
+  <canvas id="fondo" aria-hidden="true"></canvas>
+
+  <!-- ASTRO: sol de día, luna de noche. Reacciona al mouse/touch y al scroll -->
+  <div id="astro" aria-hidden="true"></div>
+
+  <header class="barra">
+    <span class="logo">Sonic Unleashed</span>
+    <nav>
+      <a href="#dia">Día</a>
+      <a href="#transformacion">Transformación</a>
+      <a href="#noche">Noche</a>
+    </nav>
+  </header>
+
+  <main>
+    <!-- 1. HERO -->
+    <section id="hero" class="seccion">
+      <h1 class="titulo-hero">Sonic<br>Unleashed</h1>
+      <p class="bajada">De día corre más rápido que el sonido. De noche, ya no es el mismo.</p>
+      <a class="boton" href="#dia">Descubrir el juego</a>
+    </section>
+
+    <!-- 2. DÍA -->
+    <section id="dia" class="seccion">
+      <h2 class="reveal">Velocidad sin freno</h2>
+      <div class="rejilla">
+        <article class="panel reveal tilt">
+          <h3>Boost</h3>
+          <p>Escenarios por todo el mundo recorridos a toda velocidad.</p>
+        </article>
+        <article class="panel reveal tilt">
+          <h3>Esquiva</h3>
+          <p>Reflejos al límite para esquivar obstáculos en pleno vuelo.</p>
+        </article>
+        <article class="panel reveal tilt">
+          <h3>Ciudades del mundo</h3>
+          <p>Cada región del planeta con su propio paisaje y ritmo.</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- 3. TRANSFORMACIÓN (el contenido queda "pegado" mientras se hace scroll) -->
+    <section id="transformacion">
+      <div class="pegado">
+        <h2 id="titulo-transf">Cae la noche</h2>
+        <p id="texto-transf">Sigue bajando...</p>
+      </div>
+    </section>
+
+    <!-- 4. NOCHE -->
+    <section id="noche" class="seccion">
+      <h2 class="reveal">La bestia despierta</h2>
+      <div class="rejilla">
+        <article class="panel reveal tilt">
+          <h3>Fuerza</h3>
+          <p>Golpes pesados y combate cuerpo a cuerpo.</p>
+        </article>
+        <article class="panel reveal tilt">
+          <h3>Brazos elásticos</h3>
+          <p>Trepa, cuelga y se balancea por ruinas y templos.</p>
+        </article>
+        <article class="panel reveal tilt">
+          <h3>Escenarios oscuros</h3>
+          <p>Niebla, luna y rincones que esconden secretos.</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- 5. CIERRE -->
+    <section id="cierre" class="seccion">
+      <h2 class="reveal">Elige tu mitad</h2>
+      <a class="boton reveal" href="#hero">Volver al inicio</a>
+    </section>
+  </main>
+
+  <footer class="pie">Proyecto académico · Web Móvil · Taller 1</footer>
+
+  <script src="js/script.js"></script>
+</body>
+</html>
